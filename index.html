@@ -12,6 +12,7 @@
         }
 
         body {
+            font-weigth:200;
             color: var(--tg-theme-text-color);
             background: var(--tg-theme-bg-color);
         }
@@ -24,7 +25,7 @@
         }
 
         h1 {
-            margin-top: 40px;
+            margin-top: 50px;
             margin-bottom: 10px;
         }
         #form{
@@ -45,7 +46,7 @@
            border-color: #db5d5d;
        }
 
-        .btn {
+        button {
             border: 0;
             border-radius: 5px;
             margin-top: 50px;
@@ -54,8 +55,12 @@
             font-size: 20px;
             font-weight: 500;
             cursor: pointer;
-            color: var(--tg-theme-button-text-color);
-            background: var(--tg-theme-button-color);
+            transition: all 500ms ease;
+            color: var(--tg-theme-button-color);
+            background: var(--tg-theme-button-text-color);
+        }
+        button:hover{
+            background: var(--th-theme-secondary-bg-color);
         }
 
     </style>
