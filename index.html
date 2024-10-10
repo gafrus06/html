@@ -16,7 +16,7 @@
             background: var(--tg-theme-bg-color);
         }
 
-        .Main {
+        #Main {
             width: 100%;
             padding: 25px;
             text-align: center;
@@ -27,11 +27,23 @@
             margin-top: 40px;
             margin-bottom: 10px;
         }
-
-        img {
-            width: 70px;
-            margin: 30px auto;
+        #form{
+            display: none;
+            text-align: center;
         }
+
+       input{
+           width: 90%;
+           outline: none;
+           margin: 10px 5%;
+           padding: 15px 10px;
+           font-size: 14px;
+           border: 2px solid silver;
+           border-radius: 5px;
+       }
+       input:focus{
+           border-color: #db5d5d;
+       }
 
         .btn {
             border: 0;
@@ -39,23 +51,43 @@
             margin-top: 50px;
             height: 60px;
             width: 200px;
-            font-style: 20px;
+            font-size: 20px;
             font-weight: 500;
             cursor: pointer;
             color: var(--tg-theme-button-text-color);
             background: var(--tg-theme-button-color);
         }
-        
+
     </style>
 </head>
 <body>
-    <div class="Main">
-        <h1>Тестовое приложение</h1>
-        <img src="{{ url_for('static', filename='bot.png') }}" alt="123">
-        <p></p>
-        <button class="btn">Кнопка</button>
-    </div>
+<div id="Main">
+    <h1>Магазин</h1>
+    <p></p>
+    <button class="btn">Кнопка</button>
+</div>
+<form id="form">
+    <input type="text" placeholder="Имя" id="user_name">
+    <input type="text" placeholder="Email" id="user_email">
+    <input type="text" placeholder="phone" id="user_phone">
+    <button id="order">Оформить</button>
 
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+</form>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<script>
+    let tg = window.Telegram.WebApp;
+    let buy = document.getElementById("btn");
+    let order = document.getElementById("order");
+
+    buy.addEventListener("click", () =>{
+        document.getElementById("Main").style.display = "none";
+        document.getElementById("form").style.display = "block";
+
+        document.getElementById("user_name").value = tg.initDataUnsafe.user.first_name + " " + tg.initDataUnsafe.user.last_name;
+    });
+    order.addEventListener("click", () =>{
+        tg.close();
+    });
+</script>
 </body>
 </html>
