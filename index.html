@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Bungee&family=Playwrite+AU+VIC:wght@100..400&display=swap');
+
         * {
             margin: 0;
             padding: 0;
@@ -12,7 +14,7 @@
         }
 
         body {
-            font-weight: 200;
+            font-weight: 200; /* Исправлено: font-weight вместо font-weigth */
             color: white; /* Цвет текста белый */
             background: black; /* Черный фон */
         }
@@ -21,6 +23,14 @@
             width: 100%;
             padding: 25px;
             text-align: center;
+        }
+
+        .title{
+            width: 100%;
+            padding: 25px;
+            text-align: center;
+            display: none;
+            font-family: Bungee, serif;
         }
 
         h1 {
@@ -33,52 +43,29 @@
             text-align: center;
         }
 
-        input {
+        input, textarea {
             width: 90%;
             outline: none;
             margin: 10px 5%;
             padding: 15px 10px;
             font-size: 14px;
-            border: 2px solid white; /* Белая граница */
+            border: 2px solid #cccccc; /* Светло-серая граница */
             border-radius: 5px;
-            color: white; /* Цвет текста белый */
             background: transparent; /* Прозрачный фон */
+            color: white; /* Цвет текста белый */
         }
 
-        input::placeholder {
-            color: white; /* Белый цвет для placeholder */
-        }
-
-        input:focus {
+        input:focus, textarea:focus {
             border-color: #db5d5d; /* Цвет границы при фокусе */
         }
 
-        /* Стили для textarea */
         textarea {
-            width: 90%;
-            outline: none;
-            margin: 10px 5%;
-            padding: 15px 10px;
-            font-size: 14px;
-            border: 2px solid white; /* Белая граница */
-            border-radius: 5px;
-            color: white; /* Цвет текста белый */
-            background: transparent; /* Прозрачный фон */
             resize: none; /* Запретить изменение размера */
         }
 
-        textarea::placeholder {
-            color: white; /* Белый цвет для placeholder */
-        }
-
-        textarea:focus {
-            border-color: #db5d5d; /* Цвет границы при фокусе */
-        }
-
-        /* Стили для радиокнопок */
         div {
             margin: 10px 5%;
-            text-align: left; /* Выравнивание текста влево */
+            text-align: left; /* Выравнивание текста влево для радиокнопок */
         }
 
         label {
@@ -87,8 +74,15 @@
             color: white; /* Цвет текста белый для меток */
         }
 
+        /* Стили для радиокнопок */
+        input[type="radio"] {
+            accent-color: #db5d5d; /* Цвет радиокнопок */
+            transform: scale(1.2); /* Увеличение размера радиокнопок */
+            margin-right: 5px; /* Отступ между радиокнопкой и текстом */
+        }
+
         button {
-            border: 2px solid white; /* Белая граница */
+            border: 2px solid #cccccc; /* Светло-серая граница */
             border-radius: 5px; /* Закругленные границы */
             margin-top: 50px;
             height: 60px;
@@ -102,8 +96,59 @@
         }
 
         button:hover {
-            background: rgba(255, 255, 255, 0.1); /* Полупрозрачный белый фон при наведении */
+        border-color: #ff5e5e /* Полупрозрачный белый фон при наведении */
         }
+        .radio-group {
+            margin: 10px 5%;
+            display: flex; /* Используем flexbox для выравнивания */
+            justify-content: center; /* Центрируем радиокнопки */
+        }
+
+        .custom-radio {
+            margin-right: 20px; /* Отступ между радиокнопками */
+            font-size: 14px; /* Размер шрифта для меток */
+            color: white; /* Цвет текста белый для меток */
+            cursor: pointer; /* Указатель при наведении */
+            position: relative; /* Позволяет позиционировать псевдоэлемент */
+        }
+
+        .custom-radio input[type="radio"] {
+            display: none; /* Скрываем стандартные радиокнопки */
+        }
+
+        .radio-btn {
+            width: 20px; /* Ширина радиокнопки */
+            height: 20px; /* Высота радиокнопки */
+            border: 2px solid #cccccc; /* Светло-серая граница */
+            border-radius: 50%; /* Закругленные края */
+            display: inline-block; /* Отображаем как блочный элемент */
+            position: relative; /* Позволяет позиционировать псевдоэлемент */
+            margin-right: 10px; /* Отступ между радиокнопкой и текстом */
+            transition: background 0.3s ease; /* Плавный переход фона */
+        }
+
+        .custom-radio input[type="radio"]:checked + .radio-btn {
+            background: #db5d5d; /* Цвет радиокнопки при выборе */
+            border: 2px solid #db5d5d; /* Изменяем границу при выборе */
+        }
+
+        .custom-radio .radio-btn:after {
+            content: '';
+            width: 10px; /* Ширина внутреннего круга */
+            height: 10px; /* Высота внутреннего круга */
+            border-radius: 50%; /* Закругленные края для внутреннего круга */
+            background: white; /* Цвет внутреннего круга */
+            position: absolute; /* Позиционируем относительно родителя */
+            top: 50%; /* Центрируем по вертикали */
+            left: 50%; /* Центрируем по горизонтали */
+            transform: translate(-50%, -50%); /* Центрируем */
+            display: none; /* Скрываем внутренний круг по умолчанию */
+        }
+
+        .custom-radio input[type="radio"]:checked + .radio-btn:after {
+            display: block; /* Показываем внутренний круг при выборе */
+        }
+
 
     </style>
 </head>
@@ -113,54 +158,83 @@
     <p></p>
     <button id="btn">Приступить</button>
 </div>
-<form id="form">
+<div class="title">
+    <h1>FILY</h1>
+</div>
+<form id="form" style="display: none;">
     <input type="text" placeholder="Имя" id="first_name" required>
     <input type="text" placeholder="Фамилия" id="second_name" required>
 
-    <div>
-        <label>
-            <input type="radio" name="gender" value="male" required> Мужской
+    <div class="radio-group">
+        <label class="custom-radio">
+            <input type="radio" name="gender" value="male" required>
+            <span class="radio-btn"></span>
+            Мужской
         </label>
-        <label>
-            <input type="radio" name="gender" value="female" required> Женский
+        <label class="custom-radio">
+            <input type="radio" name="gender" value="female" required>
+            <span class="radio-btn"></span>
+            Женский
         </label>
     </div>
 
     <textarea placeholder="О себе" id="about_me" rows="4" required></textarea>
-
-    <input type="text" placeholder="Телефон" id="user_phone" required>
-    <div id="error"></div>
-    <button id="order">Применить</button>
+    <div id="error" style="color: red;"></div>
+    <button type="button" id="success">Применить</button>
 </form>
 
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <script>
     let tg = window.Telegram.WebApp;
-    let buy = document.getElementById("btn");
-    let order = document.getElementById("order");
+    let go = document.getElementById("btn");
+    let success = document.getElementById("success");
     tg.expand();
-    buy.addEventListener("click", () =>{
+
+    go.addEventListener("click", () => {
         document.getElementById("Main").style.display = "none";
         document.getElementById("form").style.display = "block";
+        document.querySelector(".title").style.display = "block";
     });
-    order.addEventListener("click", () => {
-        document.getElementById("error").innerText = '';
-        let name = document.getElementById("first_name").value;
-        let phone = document.getElementById("user_phone").value;
 
-        if (name.length < 5) {
-            document.getElementById("error").innerText = 'Ошибка в имени';
+    success.addEventListener("click", () => {
+        document.getElementById("error").innerText = '';
+
+        let firstName = document.getElementById("first_name").value.trim();
+        let secondName = document.getElementById("second_name").value.trim();
+        let bio = document.getElementById("about_me").value.trim();
+        let gender = document.querySelector('input[name="gender"]:checked'); // Получаем выбранный элемент радиокнопки
+
+        // Проверка на заполненность полей
+        if (!firstName) {
+            document.getElementById("error").innerText = 'Ошибка: Имя не заполнено';
             return;
         }
-        if (phone.length !== 11) {
-            document.getElementById("error").innerText = 'Ошибка в номере';
+
+        if (!secondName) {
+            document.getElementById("error").innerText = 'Ошибка: Фамилия не заполнена';
             return;
         }
+
+        if (!bio) {
+            document.getElementById("error").innerText = 'Ошибка: Поле "О себе" не заполнено';
+            return;
+        }
+
+        if (!gender) {
+            document.getElementById("error").innerText = 'Ошибка: Выберите пол';
+            return;
+        }
+
+        // Получение значения выбранного пола
+        let genderValue = gender.value;
 
         let data = {
-            name: name,
-            phone: phone
+            firstName: firstName,
+            secondName: secondName,
+            gender: genderValue,
+            bio: bio
         };
+
         tg.sendData(JSON.stringify(data));
         tg.close();
     });
