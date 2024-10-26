@@ -164,7 +164,11 @@
 <form id="form" style="display: none;">
     <input type="text" placeholder="Имя" id="first_name" required>
     <input type="text" placeholder="Фамилия" id="second_name" required>
+    <input type="text" placeholder="Возраст" id="age" required>
+    <input type="text" placeholder="Рост в см" id="height" required>
+    
     <textarea placeholder="О себе" id="about_me" rows="3" required></textarea>
+    
     <div class="radio-group">
         <label class="custom-radio">
             <input type="radio" name="gender" value="male" required>
@@ -177,6 +181,8 @@
             Женский
         </label>
     </div>
+
+
     <div id="error" style="color: red;"></div>
     <button type="button" id="success">Применить</button>
 </form>
@@ -212,6 +218,8 @@
         let firstName = document.getElementById("first_name").value.trim();
         let secondName = document.getElementById("second_name").value.trim();
         let bio = document.getElementById("about_me").value.trim();
+        let age = document.getElementById("age").value.trim();
+        let height = document.getElementById("height").value.trim();
         let gender = document.querySelector('input[name="gender"]:checked'); // Получаем выбранный элемент радиокнопки
 
         // Проверка на заполненность полей
@@ -234,6 +242,14 @@
             document.getElementById("error").innerText = 'Ошибка: Выберите пол';
             return;
         }
+         if (!age) {
+            document.getElementById("error").innerText = 'Ошибка: Введте возвраст';
+            return;
+        }
+         if (!height) {
+            document.getElementById("error").innerText = 'Ошибка: Введите рост';
+            return;
+        }
 
         // Получение значения выбранного пола
         let genderValue = gender.value;
@@ -242,7 +258,9 @@
             firstName: firstName,
             secondName: secondName,
             gender: genderValue,
-            bio: bio
+            bio: bio,
+            age: age,
+            height: height
         };
 
         tg.sendData(JSON.stringify(data));
