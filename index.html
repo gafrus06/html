@@ -166,7 +166,7 @@
     <input type="text" placeholder="Фамилия" id="second_name" required>
     <input type="text" placeholder="Возраст" id="age" required>
     <input type="text" placeholder="Рост в см" id="height" required>
-    
+    <input type="text" placeholder="Город" id="location" required>
     <textarea placeholder="О себе" id="about_me" rows="3" required></textarea>
     
     <div class="radio-group">
@@ -220,11 +220,16 @@
         let bio = document.getElementById("about_me").value.trim();
         let age = document.getElementById("age").value.trim();
         let height = document.getElementById("height").value.trim();
+        let location = document.getElementById("location").value.trim();
         let gender = document.querySelector('input[name="gender"]:checked'); // Получаем выбранный элемент радиокнопки
 
         // Проверка на заполненность полей
         if (!firstName) {
             document.getElementById("error").innerText = 'Ошибка: Имя не заполнено';
+            return;
+        }
+         if (!location) {
+            document.getElementById("error").innerText = 'Ошибка: Город не заполнен';
             return;
         }
 
@@ -261,6 +266,7 @@
             gender: genderValue,
             bio: bio,
             age: age,
+            location: location,
             height: height
         };
 
