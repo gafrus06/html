@@ -12,43 +12,84 @@
         }
 
         body {
-            font-weigth:200;
-            color: var(--tg-theme-text-color);
-            background: var(--tg-theme-bg-color);
+            font-weight: 200;
+            color: white; /* Цвет текста белый */
+            background: black; /* Черный фон */
         }
 
         #Main {
             width: 100%;
             padding: 25px;
             text-align: center;
-
         }
 
         h1 {
             margin-top: 50px;
             margin-bottom: 10px;
         }
-        #form{
+
+        #form {
             display: none;
             text-align: center;
         }
 
-       input{
-           width: 90%;
-           outline: none;
-           margin: 10px 5%;
-           padding: 15px 10px;
-           font-size: 14px;
-           border: 2px solid silver;
-           border-radius: 5px;
-       }
-       input:focus{
-           border-color: #db5d5d;
-       }
+        input {
+            width: 90%;
+            outline: none;
+            margin: 10px 5%;
+            padding: 15px 10px;
+            font-size: 14px;
+            border: 2px solid white; /* Белая граница */
+            border-radius: 5px;
+            color: white; /* Цвет текста белый */
+            background: transparent; /* Прозрачный фон */
+        }
+
+        input::placeholder {
+            color: white; /* Белый цвет для placeholder */
+        }
+
+        input:focus {
+            border-color: #db5d5d; /* Цвет границы при фокусе */
+        }
+
+        /* Стили для textarea */
+        textarea {
+            width: 90%;
+            outline: none;
+            margin: 10px 5%;
+            padding: 15px 10px;
+            font-size: 14px;
+            border: 2px solid white; /* Белая граница */
+            border-radius: 5px;
+            color: white; /* Цвет текста белый */
+            background: transparent; /* Прозрачный фон */
+            resize: none; /* Запретить изменение размера */
+        }
+
+        textarea::placeholder {
+            color: white; /* Белый цвет для placeholder */
+        }
+
+        textarea:focus {
+            border-color: #db5d5d; /* Цвет границы при фокусе */
+        }
+
+        /* Стили для радиокнопок */
+        div {
+            margin: 10px 5%;
+            text-align: left; /* Выравнивание текста влево */
+        }
+
+        label {
+            margin-right: 20px; /* Отступ между радиокнопками */
+            font-size: 14px; /* Размер шрифта для меток */
+            color: white; /* Цвет текста белый для меток */
+        }
 
         button {
-            border: 0;
-            border-radius: 5px;
+            border: 2px solid white; /* Белая граница */
+            border-radius: 5px; /* Закругленные границы */
             margin-top: 50px;
             height: 60px;
             width: 200px;
@@ -56,29 +97,42 @@
             font-weight: 500;
             cursor: pointer;
             transition: all 500ms ease;
-            color: var(--tg-theme-button-color);
-            background: var(--tg-theme-button-text-color);
+            color: white; /* Цвет текста белый */
+            background: transparent; /* Прозрачный фон для кнопки */
         }
-        button:hover{
-            background: var(--th-theme-secondary-bg-color);
+
+        button:hover {
+            background: rgba(255, 255, 255, 0.1); /* Полупрозрачный белый фон при наведении */
         }
 
     </style>
 </head>
 <body>
 <div id="Main">
-    <h1>Магазин</h1>
+    <h1>Анкета о пользователе</h1>
     <p></p>
-    <button id="btn">Купить</button>
+    <button id="btn">Приступить</button>
 </div>
 <form id="form">
-    <input type="text" placeholder="Имя" id="user_name">
-    <input type="text" placeholder="Email" id="user_email">
-    <input type="text" placeholder="phone" id="user_phone">
-    <div id="error"></div>
-    <button id="order">Оформить</button>
+    <input type="text" placeholder="Имя" id="first_name" required>
+    <input type="text" placeholder="Фамилия" id="second_name" required>
 
+    <div>
+        <label>
+            <input type="radio" name="gender" value="male" required> Мужской
+        </label>
+        <label>
+            <input type="radio" name="gender" value="female" required> Женский
+        </label>
+    </div>
+
+    <textarea placeholder="О себе" id="about_me" rows="4" required></textarea>
+
+    <input type="text" placeholder="Телефон" id="user_phone" required>
+    <div id="error"></div>
+    <button id="order">Применить</button>
 </form>
+
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <script>
     let tg = window.Telegram.WebApp;
@@ -88,37 +142,28 @@
     buy.addEventListener("click", () =>{
         document.getElementById("Main").style.display = "none";
         document.getElementById("form").style.display = "block";
-
-        document.getElementById("user_name").value = tg.initDataUnsafe.user.first_name + " " + tg.initDataUnsafe.user.last_name;
     });
     order.addEventListener("click", () => {
-    document.getElementById("error").innerText = '';
-    let name = document.getElementById("user_name").value;
-    let email = document.getElementById("user_email").value;
-    let phone = document.getElementById("user_phone").value;
+        document.getElementById("error").innerText = '';
+        let name = document.getElementById("first_name").value;
+        let phone = document.getElementById("user_phone").value;
 
-    if (name.length < 5) {
-        document.getElementById("error").innerText = 'Ошибка в имени';
-        return;
-    }
-    if (email.length < 5) {
-        document.getElementById("error").innerText = 'Ошибка в почте';
-        return;
-    }
-    if (phone.length !== 11) {
-        document.getElementById("error").innerText = 'Ошибка в номере';
-        return;
-    }
+        if (name.length < 5) {
+            document.getElementById("error").innerText = 'Ошибка в имени';
+            return;
+        }
+        if (phone.length !== 11) {
+            document.getElementById("error").innerText = 'Ошибка в номере';
+            return;
+        }
 
-    let data = {
-        name: name,
-        email: email,
-        phone: phone
-    };
-    tg.sendData(JSON.stringify(data));
-    tg.close();
-});
-    
+        let data = {
+            name: name,
+            phone: phone
+        };
+        tg.sendData(JSON.stringify(data));
+        tg.close();
+    });
 </script>
 </body>
 </html>
