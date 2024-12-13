@@ -3,10 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>SavePass</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Bungee&family=Playwrite+AU+VIC:wght@100..400&display=swap');
-
         * {
             margin: 0;
             padding: 0;
@@ -14,265 +12,217 @@
         }
 
         body {
-            font-weight: 200; /* Исправлено: font-weight вместо font-weigth */
-            color: white; /* Цвет текста белый */
-            background: black; /* Черный фон */
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f2f5;
+            color: #333;
+            scroll-behavior: smooth;
         }
 
-        #Main {
-            width: 91%;
-            padding: 25px;
+        header {
+            background: #000;
+            color: #fff;
             text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
         }
 
-        .title{
-            width: 90%;
-            padding: 25px;
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 30px; /* Увеличен отступ */
+        }
+
+        .ball {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #fff;
+            animation: bounce 1.5s infinite ease-in-out;
+        }
+
+        .ball:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .ball:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        .ball:nth-child(4) {
+            animation-delay: 0.6s;
+        }
+
+        .ball:nth-child(5) {
+            animation-delay: 0.8s;
+        }
+
+        .ball:nth-child(6) {
+            animation-delay: 1s;
+        }
+
+        .ball:nth-child(7) {
+            animation-delay: 1.2s;
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        header h1 {
+            font-size: 5em;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        header p.tagline {
+            font-size: 2.5em;
+            font-weight: 300;
+            margin-top: 10px;
+        }
+
+        section {
+            position: relative;
+        }
+
+        .content {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1s ease-in-out;
+        }
+
+        .content.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .content .description {
+            position: absolute;
+            right: 5%;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #000;
+            text-align: right;
+            font-size: 2.8em;
+            font-weight: bold;
+            line-height: 1.2;
+        }
+
+        .content .description span {
+            display: block;
+            font-size: 0.4em;
+            font-weight: normal;
+            margin-top: 10px;
+        }
+
+        .footer {
+            background-color: #000;
             text-align: center;
-            display: none;
-            font-family: Bungee, serif;
+            padding: 50px 20px;
         }
 
-        h1 {
-            margin-top: 50px;
-            margin-bottom: 10px;
+        .footer a {
+            display: inline-block;
+            padding: 15px 30px;
+            font-size: 1.5em;
+            color: #000;
+            background: #fff;
+            border-radius: 25px;
+            text-decoration: none;
+            transition: background 0.3s ease, color 0.3s ease;
         }
 
-        #form {
-            display: none;
-            text-align: center;
+        .footer a:hover {
+            background: #293133;
+            color: #fff;
         }
-
-        input, textarea {
-            width: 90%;
-            outline: none;
-            margin: 10px 5%;
-            padding: 15px 10px;
-            font-size: 14px;
-            border: 2px solid #cccccc; /* Светло-серая граница */
-            border-radius: 5px;
-            background: transparent; /* Прозрачный фон */
-            color: white; /* Цвет текста белый */
-        }
-
-        input:focus, textarea:focus {
-            border-color: #db5d5d; /* Цвет границы при фокусе */
-        }
-
-        textarea {
-            resize: none; /* Запретить изменение размера */
-        }
-
-        div {
-            margin: 10px 5%;
-            text-align: left; /* Выравнивание текста влево для радиокнопок */
-        }
-
-        label {
-            margin-right: 20px; /* Отступ между радиокнопками */
-            font-size: 14px; /* Размер шрифта для меток */
-            color: white; /* Цвет текста белый для меток */
-        }
-
-        /* Стили для радиокнопок */
-        input[type="radio"] {
-            accent-color: #db5d5d; /* Цвет радиокнопок */
-            transform: scale(1.2); /* Увеличение размера радиокнопок */
-            margin-right: 5px; /* Отступ между радиокнопкой и текстом */
-        }
-
-        button {
-            border: 2px solid #cccccc; /* Светло-серая граница */
-            border-radius: 5px; /* Закругленные границы */
-            margin-top: 50px;
-            height: 60px;
-            width: 200px;
-            font-size: 20px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 500ms ease;
-            color: white; /* Цвет текста белый */
-            background: transparent; /* Прозрачный фон для кнопки */
-        }
-
-        button:hover {
-        border-color: #ff5e5e /* Полупрозрачный белый фон при наведении */
-        }
-        .radio-group {
-            margin: 10px 5%;
-            display: flex; /* Используем flexbox для выравнивания */
-            justify-content: center; /* Центрируем радиокнопки */
-        }
-
-        .custom-radio {
-            margin-right: 20px; /* Отступ между радиокнопками */
-            font-size: 14px; /* Размер шрифта для меток */
-            color: white; /* Цвет текста белый для меток */
-            cursor: pointer; /* Указатель при наведении */
-            position: relative; /* Позволяет позиционировать псевдоэлемент */
-        }
-
-        .custom-radio input[type="radio"] {
-            display: none; /* Скрываем стандартные радиокнопки */
-        }
-
-        .radio-btn {
-            width: 20px; /* Ширина радиокнопки */
-            height: 20px; /* Высота радиокнопки */
-            border: 2px solid #cccccc; /* Светло-серая граница */
-            border-radius: 50%; /* Закругленные края */
-            display: inline-block; /* Отображаем как блочный элемент */
-            position: relative; /* Позволяет позиционировать псевдоэлемент */
-            margin-right: 10px; /* Отступ между радиокнопкой и текстом */
-            transition: background 0.3s ease; /* Плавный переход фона */
-        }
-
-        .custom-radio input[type="radio"]:checked + .radio-btn {
-            background: #db5d5d; /* Цвет радиокнопки при выборе */
-            border: 2px solid #db5d5d; /* Изменяем границу при выборе */
-        }
-
-        .custom-radio .radio-btn:after {
-            content: '';
-            width: 10px; /* Ширина внутреннего круга */
-            height: 10px; /* Высота внутреннего круга */
-            border-radius: 50%; /* Закругленные края для внутреннего круга */
-            background: white; /* Цвет внутреннего круга */
-            position: absolute; /* Позиционируем относительно родителя */
-            top: 50%; /* Центрируем по вертикали */
-            left: 50%; /* Центрируем по горизонтали */
-            transform: translate(-50%, -50%); /* Центрируем */
-            display: none; /* Скрываем внутренний круг по умолчанию */
-        }
-
-        .custom-radio input[type="radio"]:checked + .radio-btn:after {
-            display: block; /* Показываем внутренний круг при выборе */
-        }
-
-
     </style>
 </head>
 <body>
-<div id="Main">
-    <h1>Анкета о пользователе</h1>
-    <p></p>
-    <button id="btn">Приступить</button>
-</div>
-<div class="title">
-    <h1>FILY</h1>
-</div>
-<form id="form" style="display: none;">
-    <input type="text" placeholder="Имя" id="first_name" required>
-    <input type="text" placeholder="Фамилия" id="second_name" required>
-    <input type="text" placeholder="Возраст" id="age" required>
-    <input type="text" placeholder="Рост в см" id="height" required>
-    <input type="text" placeholder="Город" id="location" required>
-    <textarea placeholder="О себе" id="about_me" rows="3" required></textarea>
-    
-    <div class="radio-group">
-        <label class="custom-radio">
-            <input type="radio" name="gender" value="male" required>
-            <span class="radio-btn"></span>
-            Мужской
-        </label>
-        <label class="custom-radio">
-            <input type="radio" name="gender" value="female" required>
-            <span class="radio-btn"></span>
-            Женский
-        </label>
+
+<header>
+    <div class="container">
+        <div class="ball"></div>
+        <div class="ball"></div>
+        <div class="ball"></div>
+        <div class="ball"></div>
+        <div class="ball"></div>
+        <div class="ball"></div>
+        <div class="ball"></div>
     </div>
+    <h1>SavePass</h1>
+</header>
 
+<section>
+    <div class="content" style="background-image: url('1.png');">
+        <div class="description">
+            Интуитивный дизайн
+            <span>Наш интерфейс разработан для простоты и удобства.</span>
+        </div>
+    </div>
+    <div class="content" style="background-image: url('2.png');">
+        <div class="description">
+            Надежное хранение
+            <span>Все данные шифруются алгоритмом AES-256</span>
+            <span>Также имеется возможность генерации паролей</span>
+        </div>
+    </div>
+    <div class="content" style="background-image: url('3.png');">
+        <div class="description">
+            Удобный доступ
+            <span>Хранение в удобном формате</span>
+            <span>Возможность проверить пароль на надежность</span>
+            <span>Редактирование и удаление паролей</span>
+			
+			
+        </div>
+    </div>
+</section>
 
-    <div id="error" style="color: red;"></div>
-    <button type="button" id="success">Применить</button>
-</form>
+<div class="footer">
+    <a href="https://24savepass.ru/" target="_blank">Перейти на сайт</a>
+</div>
 
-<script src="https://telegram.org/js/telegram-web-app.js"></script>
 <script>
-    let tg = window.Telegram.WebApp;
-    let go = document.getElementById("btn");
-    let success = document.getElementById("success");
-    tg.expand();
+    const contentSections = document.querySelectorAll('.content');
 
-    go.addEventListener("click", () => {
-        document.getElementById("Main").style.display = "none";
-        document.getElementById("form").style.display = "block";
-        document.querySelector(".title").style.display = "block";
-    });
-    function hideKeyboard() {
-            document.getElementById("first_name").blur();
-            document.getElementById("second_name").blur();
-            document.getElementById("about_me").blur();
-        }
+    function handleScroll() {
+        const scrollTop = window.scrollY;
+        const windowHeight = window.innerHeight;
 
-        // Обработчик события для скрытия клавиатуры при клике вне формы
-        document.addEventListener("click", (event) => {
-            const form = document.getElementById("form");
-            if (!form.contains(event.target)) {
-                hideKeyboard();
+        contentSections.forEach(section => {
+            const rect = section.getBoundingClientRect();
+            if (rect.top <= windowHeight / 1.2 && rect.bottom >= 100) {
+                section.classList.add('active');
+            } else {
+                section.classList.remove('active');
             }
         });
-    success.addEventListener("click", () => {
-        document.getElementById("error").innerText = '';
+    }
 
-        let firstName = document.getElementById("first_name").value.trim();
-        let secondName = document.getElementById("second_name").value.trim();
-        let bio = document.getElementById("about_me").value.trim();
-        let age = document.getElementById("age").value.trim();
-        let height = document.getElementById("height").value.trim();
-        let location = document.getElementById("location").value.trim();
-        let gender = document.querySelector('input[name="gender"]:checked'); // Получаем выбранный элемент радиокнопки
+    window.addEventListener('scroll', handleScroll);
 
-        // Проверка на заполненность полей
-        if (!firstName) {
-            document.getElementById("error").innerText = 'Ошибка: Имя не заполнено';
-            return;
-        }
-         if (!location) {
-            document.getElementById("error").innerText = 'Ошибка: Город не заполнен';
-            return;
-        }
-
-        if (!secondName) {
-            document.getElementById("error").innerText = 'Ошибка: Фамилия не заполнена';
-            return;
-        }
-
-        if (!bio) {
-            document.getElementById("error").innerText = 'Ошибка: Поле "О себе" не заполнено';
-            return;
-        }
-
-        if (!gender) {
-            document.getElementById("error").innerText = 'Ошибка: Выберите пол';
-            return;
-        }
-         if (!age || isNaN(age) || age <= 0) {
-            document.getElementById("error").innerText = 'Ошибка: Введите корректный возраст';
-            return;
-        }
-
-        if (!height || isNaN(height) || height <= 0) {
-            document.getElementById("error").innerText = 'Ошибка: Введите корректный рост';
-            return;
-        }
-
-        // Получение значения выбранного пола
-        let genderValue = gender.value;
-
-        let data = {
-            firstName: firstName,
-            secondName: secondName,
-            gender: genderValue,
-            bio: bio,
-            age: age,
-            location: location,
-            height: height
-        };
-
-        tg.sendData(JSON.stringify(data));
-        tg.close();
+    document.addEventListener('DOMContentLoaded', () => {
+        handleScroll(); // Инициализация анимации при загрузке страницы
     });
 </script>
+
 </body>
 </html>
